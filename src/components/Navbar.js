@@ -1,7 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Badge from 'react-bootstrap/Badge';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+
+  const cartData = useSelector(state => state.cart);
+
   return (
     <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -28,7 +33,7 @@ const Navbar = () => {
                 {
                   (localStorage.getItem("authToken")) ?
                   <div className='d-flex'>
-                    <Link className='btn bg-white text-success mx-2'>My Cart</Link>
+                    <Link className='btn bg-white text-success mx-2' to={'/cart'}>My Cart <Badge pill bg='danger'>{cartData.data.length}</Badge></Link>
                     <Link className='btn bg-white text-success mx-2' to={'/login'}>Logout</Link>
                   </div>
                   :

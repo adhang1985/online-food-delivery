@@ -1,15 +1,29 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchProduct } from '../features/searchSlice';
 
 const Carousel = () => {
+
+    const [text,setText] = useState("");
+    const dispatch = useDispatch();
+
+    const handleSearch = (e) => {
+        setText(e.target.value);
+    }
+
+    useEffect(() => {
+        dispatch(searchProduct(text));
+    },[text])
+
   return (
     <div>
       <div id="carouselExampleFade" className="carousel slide carousel-fade" style={{objectFit:'contain !important'}}>
         <div className="carousel-inner">
             <div className='carousel-caption' style={{zIndex:'10'}}>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success bg-success text-white" type="submit">Search</button>
-            </form>
+            <div class="d-flex justify-content-center" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={text} onChange={handleSearch}/>
+            </div>
             </div>
             <div className="carousel-item active">
                 <img src="https://source.unsplash.com/random/900×700/?burger" className="d-block w-100" alt="..." style={{filter:"brightness(30%)"}}/>
